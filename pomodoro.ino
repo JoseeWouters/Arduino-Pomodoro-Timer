@@ -4,6 +4,7 @@
 
 unsigned long interval = 60000;  // the time we need to wait
 unsigned long previousMillis = 0;
+unsigned long pause = 500; 
 
 uint32_t currentColor;// current Color in case we need it
 uint32_t red;
@@ -57,14 +58,14 @@ void loop(){
 }
 
 void pomodoro(){
-  
+
   unsigned long currentMillis = millis(); // grab current time
 
   for (uint16_t led = 0; led < strip.numPixels(); led++) {
     strip.setPixelColor(currentPixel,currentColor);
     strip.show();
     while (millis() < currentMillis + interval) {
-      // do nothing!
+      // wait
     }
     currentPixel++;
     currentMillis = millis();
@@ -73,8 +74,32 @@ void pomodoro(){
 }
 
 void timesUp() {
+
+  for (int t = 0; t<4; t++) {
     for(uint16_t i=0; i<strip.numPixels(); i++) {
-    strip.setPixelColor(i,0,0,0);
+      strip.setPixelColor(i,0,0,0);
+      strip.show();
+    }
+    wait();
+    for(uint16_t i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i,currentColor);
+      strip.show();
+    }
+    wait();
   }
-  strip.show();
+
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i,0,0,0);
+    strip.show();
+  }
+
+}
+
+void wait() {
+  unsigned long currentMillis = millis(); // grab current time
+
+  while (millis() < currentMillis + pause) {
+    // wait
+  }
+  currentMillis = millis();
 }
