@@ -12,9 +12,9 @@ uint16_t currentPixel = 0;// what pixel are we operating on
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, 2, NEO_GRB + NEO_KHZ800);
 
-int ledButton = 11;
+int ledButton = 7;
 
-int startButton = 12;
+int startButton = 5;
 int buttonState = LOW;
 int reading;
 int previous = HIGH;
